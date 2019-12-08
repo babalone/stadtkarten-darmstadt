@@ -4,6 +4,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 
+import 'main.dart';
 import 'model/Feature.dart';
 
 class MapVisualization extends StatelessWidget {
@@ -12,7 +13,7 @@ class MapVisualization extends StatelessWidget {
       child: map.FlutterMap(
         options: new map.MapOptions(
           center: new LatLng(49.8680, 8.655),
-          zoom: 12.5,
+          zoom: 12,
         ),
         layers: [
           map.TileLayerOptions(
@@ -31,6 +32,8 @@ class MapVisualization extends StatelessWidget {
             builder: (BuildContext context) => GestureDetector(
                 onTap: () {
                   print(feature);
+                  Provider.of<AppState>(context).setCurrentFeature(feature);
+                  Navigator.pushNamed(context, "/details");
                 },
                 child: Icon(Icons.location_on))))
         .toList();
