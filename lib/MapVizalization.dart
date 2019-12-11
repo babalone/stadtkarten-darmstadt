@@ -4,7 +4,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 
-import 'main.dart';
+import 'model/AppState.dart';
 import 'model/Feature.dart';
 
 class MapVisualization extends StatelessWidget {
@@ -49,10 +49,14 @@ class MapVisualization extends StatelessWidget {
           // in the middle of the parent.
           child: Consumer<List<Feature>>(
         builder: (context, features, child) {
-          if (features.isEmpty) {
-            return CircularProgressIndicator();
+          if (features == null) {
+            return Text("features seems to be null");
           } else {
-            return osmMap(features);
+            if (features.isEmpty) {
+              return CircularProgressIndicator();
+            } else {
+              return osmMap(features);
+            }
           }
         },
       )),

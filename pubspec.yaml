@@ -1,10 +1,14 @@
 name: stolpersteine_darmstadt
-description: A map with the Stolpersteine of Darmstadt an their info-text
+description: A map with the Stolpersteine of Darmstadt and their info-text
 
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
+
+dependency_overrides:
+  flutter_map:
+    git: https://github.com/domesticmouse/flutter_map
 
 dependencies:
   flutter:

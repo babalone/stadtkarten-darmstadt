@@ -1,6 +1,6 @@
 # stolpersteine_darmstadt
 
-A map with the Stolpersteine of Darmstadt an their info-text
+A map with the Stolpersteine of Darmstadt and their info-text
 
 ## Getting Started
 
