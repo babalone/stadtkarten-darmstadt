@@ -19,9 +19,11 @@ class MyApp extends StatelessWidget {
   MyApp({Key key, this.geoJson}) : super(key: key);
 
   Future<List<Feature>> fetchPost() async {
+    // TODO: configure URL in properties
     final response = await http
         .get('https://stadtatlas.darmstadt.de/geojson/Stolpersteine.geojson');
     print(response);
+    // TODO: handle other status codes
     if (response.statusCode == 200) {
       return parseToFeatures(latin1ToUtf8(response.body));
     } else {
@@ -47,13 +49,14 @@ class MyApp extends StatelessWidget {
           FutureProvider(
             initialData: List<Feature>(),
             create: (context) {
+              // TODO: always fetch the data? Cache it for speed and slow/costly internet access. Extend AppState for this?
               return fetchPost();
             },
-            catchError: (error, stacktrace){
+            catchError: (error, stacktrace) {
+              // TODO: inform the user? Allow him to send a crash-notice to app-developer?
               print(error);
               print(stacktrace);
-            }
-           ,
+            },
           ),
           ChangeNotifierProvider(
             create: (context) {
@@ -62,14 +65,18 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          // TODO: title should be in a properties-file
           title: "Stolpersteine Darmstadt",
           theme: ThemeData(
+            // TODO: should be in a properties-file
             primarySwatch: DaColor.blue,
           ),
 //          home: MapVisualization(),
           routes: <String, WidgetBuilder>{
             "/": (context) => MapVisualization(),
             "/details": (BuildContext context) => DetailsView(),
+            // TODO: add a route for information on app usage and data source
+            // TODO: add a route to legal information on used data and libraries
           },
         ));
   }

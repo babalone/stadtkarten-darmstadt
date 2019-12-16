@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Some colors are often used for Darmstadt related publications and here are definitions of those colors.
 class DaColor {
   static var blue = MaterialColor(0xFF2665b6, {
     50: Color(0xFF2665b6),

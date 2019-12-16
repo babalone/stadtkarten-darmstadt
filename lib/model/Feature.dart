@@ -2,6 +2,7 @@ import 'package:geojson/geojson.dart';
 import 'package:latlong/latlong.dart';
 import 'package:optional/optional.dart';
 
+/// A feature to be located on the map view
 class Feature {
   String name;
   String icon;
@@ -11,6 +12,9 @@ class Feature {
   LatLng point;
   Optional<String> link;
 
+  /// The GeoJsonFeature from which the other information got retrieved (if built with fromFeature(...))
+  GeoJsonFeature geoJsonFeature;
+
   @override
   toString() {
     return "name: $name; icon: $icon; layer: $layer; coords: $coords; description: $description; link: $link";
@@ -19,6 +23,7 @@ class Feature {
   static Feature fromFeature(GeoJsonFeature geoJsonFeature) {
     var properties = geoJsonFeature.properties;
     Optional<String> handleLink(String link) {
+      // TODO: locate these values in a properties file
       if (link == "http://www.stolpersteine.com/") {
         return Optional.empty();
       } else {
@@ -35,6 +40,7 @@ class Feature {
       ..coords = properties["coords"]
       ..description = properties["description"]
       ..link = handleLink(properties["link"])
-      ..point = geoJsonFeature?.geometry?.geoPoint?.point;
+      ..point = geoJsonFeature?.geometry?.geoPoint?.point
+      ..geoJsonFeature = geoJsonFeature;
   }
 }

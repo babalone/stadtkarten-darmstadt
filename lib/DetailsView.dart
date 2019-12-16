@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'model/AppState.dart';
 import 'model/Feature.dart';
 
+/// Shows detailed information about the AppState.currentFeature
 class DetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class DetailsView extends StatelessWidget {
           Text(feature.description.replaceAll("<br>", "\n")),
           if (feature.link.isPresent)
             Linkify(
+              // TODO: put text into properties-file
               text: "Weitere Informationen: ${feature.link.value}",
               onOpen: (link) async {
                 print(link);
@@ -39,6 +41,7 @@ class DetailsView extends StatelessWidget {
       );
     } else {
       return Text(
+          // TODO: put text into properties-file
           "Sie können auf der Karte einen Ort auswählen, um hier mehr über diesen Ort zu erfahren.");
     }
   }
