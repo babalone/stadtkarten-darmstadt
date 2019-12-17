@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:geojson/geojson.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -74,10 +76,43 @@ class MyApp extends StatelessWidget {
 //          home: MapVisualization(),
           routes: <String, WidgetBuilder>{
             "/": (context) => MapVisualization(),
-            "/details": (BuildContext context) => DetailsView(),
-            // TODO: add a route for information on app usage and data source
-            // TODO: add a route to legal information on used data and libraries
+            "/details": (context) => DetailsView(),
+            "/information": (context) => getUsageInformation(),
+            "/legal": (context) => getLegalInformation(),
           },
         ));
+  }
+
+  /// returns the usage information and explanation where the data comes from
+  Widget getUsageInformation() {
+    // TODO: add text to properties-file
+    return Linkify(
+      text:
+          """Die App zeigt Informationen zu den Stolpersteinen in Darmstadt an. 
+        Zu einigen Personen gibt es längere Berichte, die von verschiedenen Vereinen
+        zusammengestellt wurden. Diese App macht die Daten auf mobilen Endgeräten verfügbar.
+        Die Daten kommen von https://stadtatlas.darmstadt.de/""",
+      humanize: true,
+      onOpen: (link) async {
+        print(link);
+        await FlutterWebBrowser.openWebPage(url: link.url);
+      },
+    );
+  }
+
+  /// returns the legal information and sources of the data
+  Widget getLegalInformation() {
+    // TODO: add text to properties-file
+    return Linkify(
+      text:
+          // TODO: Lizenz anfügen
+          """Diese Anwendung ist OpenSource (Lizenz zur Nuzung folgt noch).
+        Die Daten kommen von https://stadtatlas.darmstadt.de/""",
+      humanize: true,
+      onOpen: (link) async {
+        print(link);
+        await FlutterWebBrowser.openWebPage(url: link.url);
+      },
+    );
   }
 }
